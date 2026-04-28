@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MC9 MUSIC OFFICIAL</title>
+  <meta charset="utf-8">
+  <meta name="description" content="MC9 — The Mixtape">
+  <meta name="keywords" content="MC9, Mixtape, Producer, Weston FL">
+  <meta name="author" content="MC9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0e1a2b;
+    color: #e8ddd0;
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(180deg, #0e1a2b 0%, #1a2a3e 25%, #1e2030 40%, #2d1a0e 65%, #3d1f05 80%, #0e1a2b 100%);
+    opacity: 0.95; z-index: 0; pointer-events: none;
+  }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2rem; border-bottom: 1px solid rgba(232,221,208,0.08);
+    position: sticky; top: 0; background: rgba(14,26,43,0.92);
+    backdrop-filter: blur(10px); z-index: 100;
+  }
+  .logo { font-family: 'Permanent Marker', cursive; font-size: 1.8rem; color: #1e3a5c; }
+  nav ul { list-style: none; display: flex; gap: 1.5rem; }
+  nav a { color: rgba(232,221,208,0.45); text-decoration: none; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+  nav a:hover { color: #e8820a; }
+
+  .hero { padding: 5rem 0 3.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+  .hero-eyebrow { font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: #3aaa6e; margin-bottom: 1rem; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.92; letter-spacing: 0.03em; margin-bottom: 1.5rem; color: #c8d8e8; }
+  .hero-sub { font-size: 0.7rem; color: rgba(232,221,208,0.45); line-height: 1.85; margin-bottom: 2rem; max-width: 300px; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary { background: #e8820a; color: #0e1a2b; padding: 0.8rem 1.8rem; font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; font-weight: 700; }
+  .btn-primary:hover { background: #f59a30; }
+  .btn-outline { background: transparent; color: #3aaa6e; padding: 0.8rem 1.8rem; font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid #3aaa6e; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { background: rgba(58,170,110,0.1); }
+
+  .cover-wrap { display: flex; justify-content: center; align-items: center; }
+  .cover-frame { width: 260px; height: 260px; position: relative; box-shadow: 0 0 0 1px rgba(58,170,110,0.3), 0 20px 60px rgba(0,0,0,0.6); overflow: hidden; }
+  .cover-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cover-glow { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(232,130,10,0.08) 0%, transparent 60%); pointer-events: none; }
+
+  section { padding: 4rem 0; border-top: 1px solid rgba(232,221,208,0.07); }
+  .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.5rem; }
+  .section-num { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; color: #3aaa6e; opacity: 0.7; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.06em; color: #c8d8e8; }
+
+  .tracklist { display: flex; flex-direction: column; }
+  .track {
+    display: grid; grid-template-columns: 2.5rem 1fr auto 2rem; align-items: center; gap: 1rem;
+    padding: 1.1rem 0.5rem; border-bottom: 1px solid rgba(232,221,208,0.06);
+    cursor: pointer; transition: all 0.15s; border-left: 2px solid transparent;
+  }
+  .track:hover, .track.active { border-left-color: #e8820a; padding-left: 1rem; background: rgba(232,130,10,0.04); }
+  .track.active { border-left-color: #3aaa6e; background: rgba(58,170,110,0.06); }
+  .track-num { font-size: 0.6rem; color: rgba(200,216,232,0.25); text-align: right; font-weight: 700; }
+  .track-name { font-size: 0.82rem; color: #c8d8e8; letter-spacing: 0.05em; text-transform: uppercase; }
+  .track-name.interlude { color: rgba(200,216,232,0.5); font-size: 0.75rem; }
+  .track-duration { font-size: 0.6rem; color: rgba(200,216,232,0.3); font-weight: 700; min-width: 2.5rem; text-align: right; }
+  .track-play {
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 1px solid rgba(58,170,110,0.35);
+    display: flex; align-items: center; justify-content: center;
+    color: #3aaa6e; font-size: 0.5rem; transition: all 0.2s; margin-left: auto;
+  }
+  .track:hover .track-play, .track.active .track-play { background: #3aaa6e; color: #0e1a2b; border-color: #3aaa6e; }
+
+  /* ── AUDIO PLAYER BAR ── */
+  #player-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(14,26,43,0.97); backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(58,170,110,0.25);
+    padding: 0.9rem 2rem; z-index: 200;
+    display: none; flex-direction: column; gap: 0.5rem;
+  }
+  #player-bar.visible { display: flex; }
+  .player-top { display: flex; align-items: center; gap: 1.2rem; }
+  .player-track-name { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #c8d8e8; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .player-controls { display: flex; align-items: center; gap: 0.75rem; }
+  .ctrl-btn {
+    background: none; border: none; color: rgba(200,216,232,0.5);
+    cursor: pointer; font-size: 0.85rem; padding: 0.2rem 0.4rem;
+    transition: color 0.15s;
+  }
+  .ctrl-btn:hover { color: #e8820a; }
+  .ctrl-btn.play-pause {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1px solid #3aaa6e; color: #3aaa6e;
+    display: flex; align-items: center; justify-content: center; font-size: 0.75rem;
+  }
+  .ctrl-btn.play-pause:hover { background: #3aaa6e; color: #0e1a2b; }
+  .player-time { font-size: 0.6rem; color: rgba(200,216,232,0.35); min-width: 70px; text-align: right; }
+  .progress-wrap { position: relative; height: 3px; background: rgba(200,216,232,0.1); cursor: pointer; border-radius: 2px; }
+  .progress-bar { height: 100%; background: #3aaa6e; border-radius: 2px; width: 0%; transition: width 0.1s linear; pointer-events: none; }
+  .volume-wrap { display: flex; align-items: center; gap: 0.5rem; }
+  .volume-wrap input[type=range] {
+    -webkit-appearance: none; width: 70px; height: 3px;
+    background: rgba(200,216,232,0.2); border-radius: 2px; outline: none; cursor: pointer;
+  }
+  .volume-wrap input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 10px; height: 10px;
+    border-radius: 50%; background: #3aaa6e; cursor: pointer;
+  }
+
+  .street-sign { display: inline-flex; align-items: center; gap: 0.5rem; background: #1a3a2a; border: 2px solid #3aaa6e; padding: 0.3rem 0.8rem; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: #e8f5ef; margin-bottom: 1rem; font-weight: 700; }
+  .sign-dot { width: 5px; height: 5px; border-radius: 50%; background: #3aaa6e; }
+
+  .download-card { border: 1px solid rgba(232,130,10,0.25); background: rgba(232,130,10,0.05); padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; position: relative; overflow: hidden; }
+  .download-card::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 100%; background: linear-gradient(90deg, transparent, rgba(232,130,10,0.04)); pointer-events: none; }
+  .download-text h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 0.05em; color: #c8d8e8; margin-bottom: 0.5rem; }
+  .download-text p { font-size: 0.68rem; color: rgba(232,221,208,0.45); line-height: 1.8; }
+  .track-count { font-size: 0.6rem; color: #3aaa6e; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+
+  .physical-banner { border: 1px solid rgba(58,170,110,0.2); background: rgba(58,170,110,0.04); padding: 2rem 2.5rem; margin-bottom: 2rem; }
+  .physical-label { font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: #3aaa6e; margin-bottom: 0.6rem; }
+  .physical-heading { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 0.05em; color: #c8d8e8; margin-bottom: 0.5rem; }
+  .physical-sub { font-size: 0.68rem; color: rgba(232,221,208,0.45); line-height: 1.8; }
+  .physical-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .physical-photo { overflow: hidden; border: 1px solid rgba(200,216,232,0.08); }
+  .physical-photo img { width: 100%; height: 300px; object-fit: cover; display: block; transition: transform 0.4s; }
+  .physical-photo:hover img { transform: scale(1.03); }
+
+  .about-card { display: grid; grid-template-columns: 160px 1fr; gap: 2.5rem; align-items: start; border: 1px solid rgba(200,216,232,0.08); padding: 2rem; background: rgba(200,216,232,0.02); }
+  .about-avatar { width: 160px; height: 160px; overflow: hidden; border: 1px solid rgba(58,170,110,0.3); background: rgba(200,216,232,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .avatar-placeholder { font-family: 'Permanent Marker', cursive; font-size: 3rem; color: rgba(200,216,232,0.15); }
+  .about-name { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.05em; color: #c8d8e8; margin-bottom: 0.25rem; }
+  .about-handle { font-size: 0.62rem; color: #3aaa6e; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+  .about-bio { font-size: 14px; color: white; line-height: 1.9; border-left: 2px solid rgba(232,130,10,0.3); padding-left: 1rem; font-style: italic; }
+
+
+  footer { border-top: 1px solid rgba(232,221,208,0.07); padding: 2rem 2rem 5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.6rem; color: rgba(232,221,208,0.25); flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: 'Permanent Marker', cursive; font-size: 1.2rem; color: #1e3a5c; }
+
+  @media (max-width: 620px) {
+    .hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0 2rem; }
+    .hero-title { font-size: 3.5rem; }
+    .cover-frame { width: 200px; height: 200px; }
+    .about-card { grid-template-columns: 1fr; }
+    .physical-photos { grid-template-columns: 1fr; }
+    .about-avatar { width: 100%; height: 140px; }
+    .track { grid-template-columns: 2rem 1fr 2rem; }
+    .track-duration { display: none; }
+    #player-bar { padding: 0.75rem 1rem; }
+    .volume-wrap { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky-bg"></div>
+
+<nav>
+  <div class="logo">mc9</div>
+  <ul>
+    <li><a href="#tracks">Tracks</a></li>
+    <li><a href="#download">Download</a></li>
+    <li><a href="#physical">Physical</a></li>
+    <li><a href="#about">About</a></li>
+
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">● Debut Producer Tape</p>
+      <h1 class="hero-title">The<br>Mixtape</h1>
+      <div class="hero-cta">
+        <a href="#tracks" class="btn-primary">▶ Play Tracks</a>
+        <a href="#download" class="btn-outline">↓ Download Free</a>
+      </div>
+    </div>
+    <div class="cover-wrap">
+      <div class="cover-frame">
+        <img src="images/MC9 Tape Album Cover.png" alt="MC9 — The Mixtape album cover" />
+        <div class="cover-glow"></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="tracks">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Tracklist</h2>
+    </div>
+    <div class="street-sign"><span class="sign-dot"></span> The Mixtape <span class="sign-dot"></span></div>
+    <div class="tracklist" id="tracklist">
+      <!-- Tracks injected by JS -->
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Free Download</h2>
+    </div>
+    <div class="download-card">
+      <div class="download-text">
+        <p class="track-count">9 tracks · Full project</p>
+        <h3>The Mixtape</h3>
+        <p>High quality MP3. No email required.<br>Just take it.</p>
+      </div>
+      <button class="btn-primary" id="download-btn">↓ Download Free</button>
+    </div>
+  </section>
+
+  <section id="physical">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Physical Copies</h2>
+    </div>
+    <div class="physical-banner">
+      <p class="physical-label">● Coming Soon</p>
+      <h3 class="physical-heading">Get It On CD</h3>
+      <p class="physical-sub">Limited physical copies of The Mixtape are on the way. Stay tuned.</p>
+    </div>
+    <div class="physical-photos">
+      <div class="physical-photo">
+        <img src="images/mc9cover.jpeg" alt="MC9 Mixtape CD front cover" />
+      </div>
+      <div class="physical-photo">
+        <img src="images/mc9back.jpeg" alt="MC9 Mixtape CD back and disc" />
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-card">
+      <div class="about-avatar">
+        <img src="images/IMG_1854.JPG" alt="MC9" style="width:100%; height:100%; object-fit:cover; display:block;" />
+      </div>
+      <div class="about-content">
+        <div class="about-name">MC9</div>
+        <div class="about-handle">● Producer · Weston, FL</div>
+        <p class="about-bio">
+          Hi my name is MC9. I'm a producer from the broward county area who wants to share their first mixtape with the world. This project has been in the works for a while now, and im happy I was able to finish it. Hope you enjoy listening.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+</div>
+
+<footer>
+  <div class="footer-logo">mc9</div>
+  <span>© 2026 MC9. All beats reserved.</span>
+</footer>
+
+<!-- ── STICKY PLAYER BAR ── -->
+<div id="player-bar">
+  <div class="player-top">
+    <div class="player-controls">
+      <button class="ctrl-btn" id="btn-prev" title="Previous">&#9664;&#9664;</button>
+      <button class="ctrl-btn play-pause" id="btn-play" title="Play/Pause">&#9654;</button>
+      <button class="ctrl-btn" id="btn-next" title="Next">&#9654;&#9654;</button>
+    </div>
+    <div class="player-track-name" id="player-track-name">—</div>
+    <div class="volume-wrap">
+      <span class="ctrl-btn" style="cursor:default; font-size:0.7rem;">🔊</span>
+      <input type="range" id="volume" min="0" max="1" step="0.05" value="1" />
+    </div>
+    <div class="player-time" id="player-time">0:00 / 0:00</div>
+  </div>
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+</div>
+
+<audio id="audio-engine"></audio>
+
+<script>
+  /* ══════════════════════════════════════════════════════
+     ▼▼  CONFIGURE YOUR TRACKS HERE  ▼▼
+     - file: path to your MP3 (relative to this HTML file)
+     - name: display name
+     - interlude: true makes it styled as an interlude
+     ══════════════════════════════════════════════════════ */
+  const TRACKS = [
+    { file: "audio/01 New Day.WAV",                  name: "New Day" },
+    { file: "audio/02 Kickflip.m4a",                 name: "Kickflip" },
+    { file: "audio/03 Trees.m4a",                    name: "Trees" },
+    { file: "audio/04 Lemonade.m4a",                 name: "Lemonade" },
+    { file: "audio/05 Rooftops.mp3",                 name: "Rooftops" },
+    { file: "audio/06 See You Space Cowboy.m4a",     name: "See You, Space Cowboy" },
+    { file: "audio/07 651 AM Interlude.m4a",         name: "6:51 AM — Interlude", interlude: true },
+    { file: "audio/08 Staring at the Ceiling.m4a",   name: "Staring at the Ceiling" },
+    { file: "audio/09 Wake Up.m4a",                  name: "Wake Up" },
+  ];
+
+  /* ══════════════════════════════════════════════════════
+     ▼▼  SET YOUR ZIP FILE PATH HERE  ▼▼
+     Put your zip in the same folder as this HTML file.
+     ══════════════════════════════════════════════════════ */
+  const ZIP_FILE = "MC9_The_Mixtape.zip";
+
+  /* ── build tracklist ── */
+  const tracklist = document.getElementById('tracklist');
+  TRACKS.forEach((t, i) => {
+    const row = document.createElement('div');
+    row.className = 'track';
+    row.dataset.index = i;
+    row.innerHTML = `
+      <span class="track-num">${String(i+1).padStart(2,'0')}</span>
+      <span class="track-name${t.interlude ? ' interlude' : ''}">${t.name}</span>
+      <span class="track-duration" id="dur-${i}">—</span>
+      <div class="track-play">&#9654;</div>
+    `;
+    row.addEventListener('click', () => loadTrack(i, true));
+    tracklist.appendChild(row);
+
+    /* pre-load duration */
+    const tmp = new Audio();
+    tmp.src = t.file;
+    tmp.addEventListener('loadedmetadata', () => {
+      document.getElementById(`dur-${i}`).textContent = fmtTime(tmp.duration);
+    });
+  });
+
+  /* ── audio engine ── */
+  const audio   = document.getElementById('audio-engine');
+  const bar     = document.getElementById('player-bar');
+  const nameEl  = document.getElementById('player-track-name');
+  const timeEl  = document.getElementById('player-time');
+  const progBar = document.getElementById('progress-bar');
+  const progWrap= document.getElementById('progress-wrap');
+  const btnPlay = document.getElementById('btn-play');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const volSlider = document.getElementById('volume');
+
+  let currentIndex = -1;
+
+  function loadTrack(idx, autoplay) {
+    if (idx < 0 || idx >= TRACKS.length) return;
+
+    /* clear old active */
+    document.querySelectorAll('.track.active').forEach(el => el.classList.remove('active'));
+
+    currentIndex = idx;
+    const t = TRACKS[idx];
+    audio.src = t.file;
+    nameEl.textContent = t.name;
+    bar.classList.add('visible');
+    document.querySelectorAll('.track')[idx].classList.add('active');
+
+    if (autoplay) {
+      audio.play().catch(() => {});
+      btnPlay.innerHTML = '&#9646;&#9646;';
+    }
+  }
+
+  function fmtTime(s) {
+    if (!isFinite(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${sec.toString().padStart(2,'0')}`;
+  }
+
+  btnPlay.addEventListener('click', () => {
+    if (currentIndex === -1) { loadTrack(0, true); return; }
+    if (audio.paused) { audio.play(); btnPlay.innerHTML = '&#9646;&#9646;'; }
+    else              { audio.pause(); btnPlay.innerHTML = '&#9654;'; }
+  });
+
+  btnPrev.addEventListener('click', () => {
+    if (audio.currentTime > 3) { audio.currentTime = 0; return; }
+    loadTrack(currentIndex - 1, !audio.paused);
+  });
+
+  btnNext.addEventListener('click', () => loadTrack(currentIndex + 1, !audio.paused));
+
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    progBar.style.width = pct + '%';
+    timeEl.textContent = `${fmtTime(audio.currentTime)} / ${fmtTime(audio.duration)}`;
+  });
+
+  audio.addEventListener('ended', () => {
+    if (currentIndex < TRACKS.length - 1) {
+      loadTrack(currentIndex + 1, true);
+    } else {
+      btnPlay.innerHTML = '&#9654;';
+    }
+  });
+
+  audio.addEventListener('pause', () => { btnPlay.innerHTML = '&#9654;'; });
+  audio.addEventListener('play',  () => { btnPlay.innerHTML = '&#9646;&#9646;'; });
+
+  progWrap.addEventListener('click', e => {
+    const rect = progWrap.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    if (audio.duration) audio.currentTime = pct * audio.duration;
+  });
+
+  volSlider.addEventListener('input', () => { audio.volume = volSlider.value; });
+
+  /* ── download zip ── */
+  document.getElementById('download-btn').addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.href = ZIP_FILE;
+    a.download = ZIP_FILE;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+</script>
+
+</body>
+</html>
