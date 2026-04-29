@@ -144,8 +144,35 @@
   .about-bio { font-size: 14px; color: white; line-height: 1.9; border-left: 2px solid rgba(232,130,10,0.3); padding-left: 1rem; font-style: italic; }
 
 
-  footer { border-top: 1px solid rgba(232,221,208,0.07); padding: 2rem 2rem 5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.6rem; color: rgba(232,221,208,0.25); flex-wrap: wrap; gap: 1rem; }
-  .footer-logo { font-family: 'Permanent Marker', cursive; font-size: 1.2rem; color: #1e3a5c; }
+  .social-links { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .social-btn { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 0.45rem 1rem; border: 1px solid rgba(200,216,232,0.15); color: rgba(200,216,232,0.55); transition: all 0.2s; }
+  .social-btn:hover { border-color: #e8820a; color: #e8820a; }
+
+  footer {
+    border-top: 1px solid rgba(232,221,208,0.07);
+    padding: 4rem 0 2rem;
+  }
+  .footer-inner {
+    border: 1px solid rgba(232,221,208,0.07);
+    background: rgba(200,216,232,0.02);
+    padding: 2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; width: 100%; }
+  .footer-logo { font-family: 'Permanent Marker', cursive; font-size: 1.5rem; color: #c8d8e8; }
+  .footer-links { display: flex; gap: 0.75rem; }
+  .footer-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none; font-weight: 700;
+    padding: 0.6rem 1.2rem; border: 1px solid;
+    transition: background 0.2s;
+  }
+  .footer-link.yt { color: #ff4444; border-color: #ff4444; }
+  .footer-link.yt:hover { background: #ff4444; color: #0e1a2b; }
+  .footer-link.sc { color: #ff6600; border-color: #ff6600; }
+  .footer-link.sc:hover { background: #ff6600; color: #0e1a2b; }
+  .footer-bottom { font-size: 0.6rem; color: rgba(232,221,208,0.3); border-top: 1px solid rgba(232,221,208,0.07); padding-top: 1.25rem; width: 100%; }
 
   @media (max-width: 620px) {
     .hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0 2rem; }
@@ -263,8 +290,17 @@
 </div>
 
 <footer>
-  <div class="footer-logo">mc9</div>
-  <span>© 2026 MC9. All beats reserved.</span>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-top" style="justify-content: center;">
+        <div class="footer-links">
+          <a href="https://www.youtube.com/@officialmc9music" target="_blank" class="footer-link yt">▶ YouTube</a>
+          <a href="https://soundcloud.com/officialmc9music" target="_blank" class="footer-link sc">☁ SoundCloud</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 MC9. All beats reserved.</div>
+    </div>
+  </div>
 </footer>
 
 <!-- ── STICKY PLAYER BAR ── -->
@@ -297,15 +333,15 @@
      - interlude: true makes it styled as an interlude
      ══════════════════════════════════════════════════════ */
   const TRACKS = [
-    { file: "audio/01 New Day.WAV",                  name: "New Day" },
+    { file: "audio/01 New Day.wav",                  name: "New Day" },
     { file: "audio/02 Kickflip.m4a",                 name: "Kickflip" },
-    { file: "audio/03 Trees.m4a",                    name: "Trees" },
+    { file: "audio/03 Trees (remaster).m4a",         name: "Trees (REMASTERED)" },
     { file: "audio/04 Lemonade.m4a",                 name: "Lemonade" },
     { file: "audio/05 Rooftops.mp3",                 name: "Rooftops" },
     { file: "audio/06 See You Space Cowboy.m4a",     name: "See You, Space Cowboy" },
     { file: "audio/07 651 AM Interlude.m4a",         name: "6:51 AM — Interlude", interlude: true },
     { file: "audio/08 Staring at the Ceiling.m4a",   name: "Staring at the Ceiling" },
-    { file: "audio/09 Wake Up.m4a",                  name: "Wake Up" },
+    { file: "audio/09 Wake Up v2.m4a",               name: "Wake Up" },
   ];
 
   /* ══════════════════════════════════════════════════════
