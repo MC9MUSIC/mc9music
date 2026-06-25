@@ -52,6 +52,7 @@
   .secret-trigger {
     height: 64px; width: 100%; cursor: default;
     touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0; /* Fixes layout compression in flexbox containers */
   }
 
   .secret-box {
