@@ -44,7 +44,38 @@
   .picker {
     display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
     padding: 1rem 2rem 5rem; max-width: 980px; margin: 0 auto;
+    align-items: start;
   }
+
+  .radio-col { display: flex; flex-direction: column; }
+
+  .secret-trigger { height: 32px; width: 100%; cursor: default; }
+
+  .secret-box {
+    display: none; margin-top: 1rem;
+    border: 1px dashed rgba(201,145,47,0.35);
+    background: rgba(201,145,47,0.05);
+    padding: 1.5rem; text-align: center;
+    animation: secretFade 0.3s ease;
+  }
+  @keyframes secretFade { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .secret-hint { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #c9912f; margin-bottom: 0.9rem; line-height: 1.6; }
+  .secret-input {
+    width: 100%; background: rgba(245,236,216,0.05);
+    border: 1px solid rgba(245,236,216,0.15); color: #f0ead8;
+    padding: 0.65rem 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.7rem;
+    outline: none; margin-bottom: 0.75rem; text-align: center;
+    transition: border-color 0.2s;
+  }
+  .secret-input:focus { border-color: #c9912f; }
+  .secret-submit {
+    background: #c9912f; color: #0a0a0a; border: none;
+    padding: 0.6rem 1.6rem; font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; cursor: pointer; transition: background 0.2s;
+  }
+  .secret-submit:hover { background: #e8b923; }
+  .secret-error { display: none; color: #ff6666; font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.75rem; }
 
   .project-card {
     position: relative; display: block; text-decoration: none;
@@ -143,18 +174,30 @@
     </div>
   </a>
 
-  <a href="mc9_radio.html" class="project-card card-radio">
-    <div class="project-cover">
-      <img src="images/RADIO_MC9_ALBUM_COVER.png" alt="Radio album cover" />
-      <div class="project-overlay"></div>
-      <div class="play-badge">&#9654;</div>
+  <div class="radio-col">
+    <a href="mc9_radio.html" class="project-card card-radio">
+      <div class="project-cover">
+        <img src="images/RADIO_MC9_ALBUM_COVER.png" alt="Radio album cover" />
+        <div class="project-overlay"></div>
+        <div class="play-badge">&#9654;</div>
+      </div>
+      <div class="project-info">
+        <p class="project-label">● 7 Tracks</p>
+        <h2 class="project-name">Radio MC9</h2>
+        <p class="project-meta">New Producer Tape</p>
+      </div>
+    </a>
+
+    <div class="secret-trigger" id="secret-trigger"></div>
+
+    <div class="secret-box" id="secret-box">
+      <p class="secret-hint">PASSWORD HINT: my favorite mac demarco song</p>
+      <input type="text" class="secret-input" id="secret-input" placeholder="Enter the code" />
+      <br>
+      <button class="secret-submit" id="secret-submit">Unlock</button>
+      <p class="secret-error" id="secret-error">Wrong code, try again.</p>
     </div>
-    <div class="project-info">
-      <p class="project-label">● 7 Tracks</p>
-      <h2 class="project-name">Radio MC9</h2>
-      <p class="project-meta">New Producer Tape</p>
-    </div>
-  </a>
+  </div>
 </div>
 
 <footer>
@@ -164,6 +207,43 @@
   </div>
   <div class="footer-copy">© 2026 MC9. All beats reserved.</div>
 </footer>
+
+<script>
+  let secretClicks = 0;
+  const secretTrigger = document.getElementById('secret-trigger');
+  const secretBox = document.getElementById('secret-box');
+  const secretInput = document.getElementById('secret-input');
+  const secretSubmit = document.getElementById('secret-submit');
+  const secretError = document.getElementById('secret-error');
+
+  /* ▼▼ Set the correct answer (case-insensitive) ▼▼ */
+  const SECRET_ANSWER = "my kind of woman";
+  /* ▼▼ Where the correct code sends them ▼▼ */
+  const SECRET_PAGE = "secret.html";
+
+  secretTrigger.addEventListener('click', () => {
+    secretClicks++;
+    if (secretClicks >= 3) {
+      secretBox.style.display = 'block';
+    }
+  });
+
+  function checkSecretCode() {
+    const val = secretInput.value.trim().toLowerCase();
+    if (val === SECRET_ANSWER) {
+      window.location.href = SECRET_PAGE;
+    } else {
+      secretError.style.display = 'block';
+      secretInput.value = '';
+      secretInput.focus();
+    }
+  }
+
+  secretSubmit.addEventListener('click', checkSecretCode);
+  secretInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkSecretCode();
+  });
+</script>
 
 </body>
 </html>
