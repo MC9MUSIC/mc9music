@@ -49,30 +49,34 @@
 
   .radio-col { display: flex; flex-direction: column; }
 
-  .secret-trigger { height: 32px; width: 100%; cursor: default; }
+  .secret-trigger {
+    height: 64px; width: 100%; cursor: default;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
 
   .secret-box {
     display: none; margin-top: 1rem;
     border: 1px dashed rgba(201,145,47,0.35);
     background: rgba(201,145,47,0.05);
     padding: 1.5rem; text-align: center;
-    animation: secretFade 0.3s ease;
   }
+  .secret-box.visible { display: block; animation: secretFade 0.3s ease; }
   @keyframes secretFade { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
   .secret-hint { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #c9912f; margin-bottom: 0.9rem; line-height: 1.6; }
   .secret-input {
     width: 100%; background: rgba(245,236,216,0.05);
     border: 1px solid rgba(245,236,216,0.15); color: #f0ead8;
-    padding: 0.65rem 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.7rem;
+    padding: 0.9rem 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.85rem;
     outline: none; margin-bottom: 0.75rem; text-align: center;
     transition: border-color 0.2s;
   }
   .secret-input:focus { border-color: #c9912f; }
   .secret-submit {
     background: #c9912f; color: #0a0a0a; border: none;
-    padding: 0.6rem 1.6rem; font-family: 'Space Mono', monospace;
-    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.8rem 1.8rem; font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
     font-weight: 700; cursor: pointer; transition: background 0.2s;
+    touch-action: manipulation;
   }
   .secret-submit:hover { background: #e8b923; }
   .secret-error { display: none; color: #ff6666; font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.75rem; }
@@ -144,6 +148,7 @@
     .picker { grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem 1.5rem 3.5rem; }
     .intro-title { font-size: 2rem; }
     .logo { font-size: 1.8rem; }
+    .secret-trigger { height: 90px; }
   }
 </style>
 </head>
@@ -177,7 +182,7 @@
   <div class="radio-col">
     <a href="mc9_radio.html" class="project-card card-radio">
       <div class="project-cover">
-        <img src="images/RADIO_MC9_ALBUM_COVER.png" alt="Radio album cover" />
+        <img src="images/RADIO_MC9_ALBUM_COVER.png" alt="Radio MC9 album cover" />
         <div class="project-overlay"></div>
         <div class="play-badge">&#9654;</div>
       </div>
@@ -224,7 +229,7 @@
   secretTrigger.addEventListener('click', () => {
     secretClicks++;
     if (secretClicks >= 3) {
-      secretBox.style.display = 'block';
+      secretBox.classList.add('visible');
     }
   });
 
