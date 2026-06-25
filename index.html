@@ -1,3 +1,12 @@
+Got it. Let’s strip out all the invisible structural code and make it dead simple.
+
+Instead of clicking an invisible box underneath, we can just make it so when you click **"Radio MC9"** itself (the text at the bottom of the second card) 3 times, a standard browser popup prompt appears asking for the password. If it's correct, it redirects them; if not, it alerts them.
+
+No extra layout boxes, no extra CSS styling required.
+
+Here is the clean, simplified code:
+
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +53,10 @@
   .picker {
     display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
     padding: 1rem 2rem 5rem; max-width: 980px; margin: 0 auto;
+    align-items: start;
   }
+
+  .radio-col { display: flex; flex-direction: column; }
 
   .project-card {
     position: relative; display: block; text-decoration: none;
@@ -66,7 +78,7 @@
 
   .project-info { padding: 1.5rem 1.5rem 1.75rem; }
   .project-label { font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 0.6rem; }
-  .project-name { font-family: 'Bebas Neue', sans-serif; font-size: 2.1rem; letter-spacing: 0.04em; color: #f0ead8; margin-bottom: 0.4rem; line-height: 1; }
+  .project-name { font-family: 'Bebas Neue', sans-serif; font-size: 2.1rem; letter-spacing: 0.04em; color: #f0ead8; margin-bottom: 0.4rem; line-height: 1; user-select: none; }
   .project-meta { font-size: 0.62rem; color: rgba(232,221,208,0.4); letter-spacing: 0.08em; text-transform: uppercase; }
 
   .play-badge {
@@ -143,18 +155,22 @@
     </div>
   </a>
 
-  <a href="mc9_radio.html" class="project-card card-radio">
-    <div class="project-cover">
-      <img src="images/RADIO_MC9_ALBUM_COVER.png" alt="Radio album cover" />
-      <div class="project-overlay"></div>
-      <div class="play-badge">&#9654;</div>
+  <div class="radio-col">
+    <div class="project-card card-radio">
+      <a href="mc9_radio.html" style="text-decoration: none; color: inherit;">
+        <div class="project-cover">
+          <img src="images/RADIO_MC9_ALBUM_COVER.png" alt="Radio MC9 album cover" />
+          <div class="project-overlay"></div>
+          <div class="play-badge">&#9654;</div>
+        </div>
+      </a>
+      <div class="project-info">
+        <p class="project-label">● 7 Tracks</p>
+        <h2 class="project-name" id="secret-trigger" style="cursor: pointer;">Radio MC9</h2>
+        <p class="project-meta">New Producer Tape</p>
+      </div>
     </div>
-    <div class="project-info">
-      <p class="project-label">● 7 Tracks</p>
-      <h2 class="project-name">Radio MC9</h2>
-      <p class="project-meta">New Producer Tape</p>
-    </div>
-  </a>
+  </div>
 </div>
 
 <footer>
@@ -165,5 +181,32 @@
   <div class="footer-copy">© 2026 MC9. All beats reserved.</div>
 </footer>
 
+<script>
+  let secretClicks = 0;
+  const trigger = document.getElementById('secret-trigger');
+
+  trigger.addEventListener('click', () => {
+    secretClicks++;
+    
+    if (secretClicks === 3) {
+      // Reset counter immediately so they can try again if they close it
+      secretClicks = 0; 
+      
+      // Native browser prompt popup
+      let password = prompt("PASSWORD HINT: my favorite mac demarco song");
+      
+      if (password !== null) { // User didn't hit cancel
+        if (password.trim().toLowerCase() === "my kind of woman") {
+          window.location.href = "secret.html";
+        } else {
+          alert("Wrong code, try again.");
+        }
+      }
+    }
+  });
+</script>
+
 </body>
 </html>
+
+```
