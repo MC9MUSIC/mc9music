@@ -1,12 +1,3 @@
-Got it. Let’s strip out all the invisible structural code and make it dead simple.
-
-Instead of clicking an invisible box underneath, we can just make it so when you click **"Radio MC9"** itself (the text at the bottom of the second card) 3 times, a standard browser popup prompt appears asking for the password. If it's correct, it redirects them; if not, it alerts them.
-
-No extra layout boxes, no extra CSS styling required.
-
-Here is the clean, simplified code:
-
-```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -193,10 +184,10 @@ Here is the clean, simplified code:
       secretClicks = 0; 
       
       // Native browser prompt popup
-      let password = prompt("PASSWORD HINT: my favorite mac demarco song");
+      let password = prompt("PASSWORD HINT: where we ate on our first date");
       
       if (password !== null) { // User didn't hit cancel
-        if (password.trim().toLowerCase() === "my kind of woman") {
+        if (password.trim().toLowerCase() === "cheesecake factory") {
           window.location.href = "secret.html";
         } else {
           alert("Wrong code, try again.");
