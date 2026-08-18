@@ -172,30 +172,6 @@
   <div class="footer-copy">© 2026 MC9. All beats reserved.</div>
 </footer>
 
-<script>
-  let secretClicks = 0;
-  const trigger = document.getElementById('secret-trigger');
-
-  trigger.addEventListener('click', () => {
-    secretClicks++;
-    
-    if (secretClicks === 3) {
-      // Reset counter immediately so they can try again if they close it
-      secretClicks = 0; 
-      
-      // Native browser prompt popup
-      let password = prompt("PASSWORD HINT: where we ate on our first date");
-      
-      if (password !== null) { // User didn't hit cancel
-        if (password.trim().toLowerCase() === "cheesecake factory") {
-          window.location.href = "secret.html";
-        } else {
-          alert("Wrong code, try again.");
-        }
-      }
-    }
-  });
-</script>
 
 </body>
 </html>
